@@ -7,8 +7,6 @@ import { SlideDefinition, SliderComponent } from '../slider/slider.component';
     <div
       class="slide"
       [ngStyle]="{
-        'width.px': width,
-        'height.px': height,
         'background-image': 'url(' + slide.backgroundImage + ')'
       }"
     >
@@ -23,14 +21,6 @@ import { SlideDefinition, SliderComponent } from '../slider/slider.component';
 export class SlideComponent implements OnInit {
   @Input()
   public slide: SlideDefinition;
-
-  get width(): number {
-    return this.slider.width;
-  }
-
-  get height(): number {
-    return this.slider.height;
-  }
 
   constructor(private slider: SliderComponent) {}
 

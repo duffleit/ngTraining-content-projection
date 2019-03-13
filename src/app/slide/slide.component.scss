@@ -1,8 +1,10 @@
 
 :host{
-    display: block;
+    display: flex;
+    flex: 1;
 }
 .slide {
+    flex: 1;
     display: inline-block;
     display: flex;
     flex-direction: column;

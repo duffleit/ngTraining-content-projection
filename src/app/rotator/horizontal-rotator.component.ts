@@ -5,16 +5,19 @@ import { SliderComponent } from '../slider/slider.component';
 @Component({
   selector: 'app-horizontal-rotator',
   template: `
-    <div
-      class="screen"
-      [ngStyle]="{
-        'margin-left.px': offset,
-        'width.px': screenWidth,
-        'flex-direction': flexDirection
-      }"
-    >
-      <ng-content></ng-content>
-    </div>
+    <app-slider-container [width]="width" [height]="height">
+      <div
+        class="screen"
+        [ngStyle]="{
+          'margin-left.px': offset,
+          'width.px': screenWidth,
+          'height.px': height,
+          'flex-direction': flexDirection
+        }"
+      >
+        <ng-content></ng-content>
+      </div>
+    </app-slider-container>
   `,
   styleUrls: ['./rotator.component.scss']
 })
@@ -23,12 +26,16 @@ export class HorizontalRotatorComponent implements OnInit, OnDestroy {
 
   @Input()
   speed: number;
+  @Input()
+  width: number;
+  @Input()
+  height: number;
 
   public offset: number;
   private intervalSubscriber: any;
 
   public get screenWidth(): number {
-    return this.slider.slides.length;
+    return this.slider.slides.length * this.width;
   }
 
   public get flexDirection(): string {
@@ -43,7 +50,7 @@ export class HorizontalRotatorComponent implements OnInit, OnDestroy {
 
     this.slider.currentSlide.subscribe(slide => {
       const indexOfCurrentSlide = this.slider.slides.indexOf(slide);
-      this.offset = indexOfCurrentSlide * this.slider.width * -1;
+      this.offset = indexOfCurrentSlide * this.width * -1;
     });
   }
 
