@@ -5,14 +5,10 @@ import { SlideDefinition } from './slider/slider.component';
   selector: 'app-root',
   template: `
     <div class="center">
-      <app-slider
-        [sliderDirection]="'vertical'"
-        [navigationPosition]="'bottom'"
-        [speed]="3000"
-        [width]="800"
-        [height]="600"
-      >
-        <app-slide *ngFor="let slide of slides" [slide]="slide"></app-slide>
+      <app-slider [navigationPosition]="'bottom'" [width]="800" [height]="600">
+        <app-vertical-rotator [speed]="3000">
+          <app-slide *ngFor="let slide of slides" [slide]="slide"></app-slide>
+        </app-vertical-rotator>
       </app-slider>
     </div>
   `,
