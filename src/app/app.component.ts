@@ -9,10 +9,11 @@ import { SlideDefinition } from './slider/slider.component';
         [sliderDirection]="'vertical'"
         [navigationPosition]="'bottom'"
         [speed]="3000"
-        [slides]="slides"
         [width]="800"
         [height]="600"
-      ></app-slider>
+      >
+        <app-slide *ngFor="let slide of slides" [slide]="slide"></app-slide>
+      </app-slider>
     </div>
   `,
   styles: [
