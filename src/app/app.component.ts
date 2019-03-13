@@ -7,7 +7,8 @@ import { SlideDefinition } from './slider/slider.component';
     <div class="center">
       <app-slider>
         <app-horizontal-rotator [speed]="3000" [width]="800" [height]="600">
-          <app-slide *ngFor="let slide of slides" [slide]="slide"></app-slide>
+          <app-slide *ngFor="let slide of slides" [slide]="slide">
+          </app-slide>
         </app-horizontal-rotator>
         <app-navigation></app-navigation>
       </app-slider>

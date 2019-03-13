@@ -18,13 +18,7 @@ import { SlideDefinition, SliderComponent } from '../slider/slider.component';
   `,
   styleUrls: ['./slide.component.scss']
 })
-export class SlideComponent implements OnInit {
+export class SlideComponent {
   @Input()
   public slide: SlideDefinition;
-
-  constructor(private slider: SliderComponent) {}
-
-  public ngOnInit(): void {
-    this.slider.registerSlide(this.slide);
-  }
 }
