@@ -1,0 +1,21 @@
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  .overview-element {
+    border-left: 1px dashed #ececec;
+    cursor: pointer;
+    width: 34%;
+    height: 5rem;
+    display: inline-block;
+    background-color: rgb(246, 246, 246);
+    border-top: 2px solid #ececec;
+    font-size: 2rem;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    &:hover {
+      background: #ececec;
+    }
+  }
+}

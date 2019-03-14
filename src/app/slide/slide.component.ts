@@ -1,5 +1,7 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ContentChild, TemplateRef } from '@angular/core';
 import { SlideDefinition, SliderComponent } from '../slider/slider.component';
+import { NgTemplateOutlet } from '@angular/common';
+import { ShortDescriptionMarkerDirective } from './short-description-marker.directive';
 
 @Component({
   selector: 'app-slide',
@@ -7,18 +9,21 @@ import { SlideDefinition, SliderComponent } from '../slider/slider.component';
     <div
       class="slide"
       [ngStyle]="{
-        'background-image': 'url(' + slide.backgroundImage + ')'
+        'background-image': 'url(' + backgroundImage + ')'
       }"
     >
       <div class="caption">
-        <div class="title">{{ slide.caption }}</div>
-        <div class="description">{{ slide.description }}</div>
+        <ng-content></ng-content>
+        <ng-container *ngTemplateOutlet="shortDescription"></ng-container>
       </div>
     </div>
   `,
   styleUrls: ['./slide.component.scss']
 })
 export class SlideComponent {
+  @ContentChild(ShortDescriptionMarkerDirective, { read: TemplateRef })
+  shortDescription: TemplateRef<any>;
+
   @Input()
-  public slide: SlideDefinition;
+  public backgroundImage: string;
 }

@@ -1,4 +1,4 @@
-import { Component, Input, ContentChildren, QueryList } from '@angular/core';
+import { Component, Input, ContentChildren, QueryList, TemplateRef } from '@angular/core';
 import { Subject } from 'rxjs';
 import { SlideComponent } from '../slide/slide.component';
 
@@ -11,23 +11,14 @@ import { SlideComponent } from '../slide/slide.component';
 })
 export class SliderComponent {
   currentSlide: Subject<SlideDefinition> = new Subject();
-  @ContentChildren(SlideComponent, {descendants: true})
+  @ContentChildren(SlideComponent, { descendants: true })
   slideComponents: QueryList<SlideComponent>;
 
   get slides(): SlideDefinition[] {
-    console.log(this.slideComponents.toArray().map(sc => sc.slide));
-    return this.slideComponents.toArray().map(sc => sc.slide);
-  }
-
-  public registerSlide(slide: SlideDefinition): void {
-    if (!this.slides.includes(slide)) {
-      this.slides.push(slide);
-    }
+    return this.slideComponents.toArray();
   }
 }
 
 export interface SlideDefinition {
-  backgroundImage: string;
-  caption: string;
-  description: string;
+  shortDescription: TemplateRef<any>;
 }
