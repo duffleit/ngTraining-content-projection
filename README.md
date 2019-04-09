@@ -1,6 +1,6 @@
 # Content Projection
 
-This exercise helps you in understand the usage of composition and content projection to write flexible and extendible UI-components.
+This exercise helps you in understanding the usage of composition and content projection to write flexible and extendible UI-components.
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.3.5.
 
