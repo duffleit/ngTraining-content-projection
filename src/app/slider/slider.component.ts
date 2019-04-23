@@ -14,6 +14,7 @@ import { interval } from 'rxjs';
           'margin-top.px': offsetY,
           'margin-left.px': offsetX,
           'width.px': screenWidth,
+          'height.px': screenHeight,
           'flex-direction': flexDirection
         }"
       >
@@ -21,8 +22,6 @@ import { interval } from 'rxjs';
           class="slide"
           *ngFor="let slide of slides"
           [ngStyle]="{
-            'width.px': width,
-            'height.px': height,
             'background-image': 'url(' + slide.backgroundImage + ')'
           }"
         >
@@ -40,25 +39,23 @@ import { interval } from 'rxjs';
   styleUrls: ['./slider.component.scss']
 })
 export class SliderComponent implements OnInit, OnDestroy {
-  @Input()
-  slides: SlideDefinition[];
-  @Input()
-  width: number;
-  @Input()
-  height: number;
-  @Input()
-  speed: number;
-  @Input()
-  sliderDirection: 'vertical' | 'horizontal' = 'horizontal';
-  @Input()
-  navigationPosition: 'top' | 'bottom' = 'bottom';
+  @Input() slides: SlideDefinition[];
+  @Input() width: number;
+  @Input() height: number;
+  @Input() speed: number;
+  @Input() sliderDirection: 'vertical' | 'horizontal' = 'horizontal';
+  @Input() navigationPosition: 'top' | 'bottom' = 'bottom';
 
-  public offsetY: number;
-  public offsetX: number;
+  public offsetY: number = 0;
+  public offsetX: number = 0;
   private intervalSubscriber: any;
 
   public get screenWidth(): number {
     return this.sliderDirection === 'horizontal' ? this.slides.length * this.width : this.width;
+  }
+
+  public get screenHeight(): number {
+    return this.sliderDirection === 'horizontal' ? this.height : this.slides.length * this.height;
   }
 
   public get flexDirection(): string {

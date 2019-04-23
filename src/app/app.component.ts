@@ -15,16 +15,7 @@ import { SlideDefinition } from './slider/slider.component';
       ></app-slider>
     </div>
   `,
-  styles: [
-    `
-      .center {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        height: 100vh;
-      }
-    `
-  ]
+  styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
   slides: SlideDefinition[] = [
