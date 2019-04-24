@@ -4,3 +4,22 @@
   justify-content: center;
   height: 100vh;
 }
+
+.dot-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  .dot {
+    border-radius: 50%;
+    cursor: pointer;
+    margin: 1rem 0.5rem;
+    min-width: 1rem;
+    min-height: 1rem;
+    padding: 1rem;
+    display: inline-block;
+    background-color: grey;
+    &:hover {
+      background-color: black;
+    }
+  }
+}
