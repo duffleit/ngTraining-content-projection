@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { SlideDefinition, SliderComponent } from '../slider/slider.component';
+import { SlideDefinition } from '../slideDefintion';
+// import { SlideDefinition, SliderComponent } from '../slider/slider.component';
 
 @Component({
   selector: 'app-slide',
@@ -22,10 +23,12 @@ export class SlideComponent implements OnInit {
   @Input() slide: SlideDefinition;
 
 
-  constructor(private slider: SliderComponent) { }
+  // constructor(private slider: SliderComponent) { }
 
   ngOnInit() {
-    this.slider.registerSlide(this.slide);
+    // this.slider.registerSlide(this.slide);
   }
 
 }
+
+

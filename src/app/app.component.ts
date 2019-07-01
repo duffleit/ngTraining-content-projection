@@ -1,17 +1,18 @@
 import { Component } from '@angular/core';
-import { SlideDefinition } from './slider/slider.component';
+import { SlideDefinition } from './slideDefintion';
 
 @Component({
   selector: 'app-root',
   template: `
     <div class="center">
-      <app-slider [navigationPosition]="'top'">
+      <app-slider>
         <app-horizontal-rotator 
           [speed]="3000" 
           [width]="800"
           [height]="600">
           <app-slide [slide]="slide" *ngFor="let slide of slides"></app-slide>
         </app-horizontal-rotator>
+        <app-navigation></app-navigation>
       </app-slider>
     </div>
   `,

@@ -1,39 +1,24 @@
-import { Component, OnInit, Input, OnDestroy } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy, QueryList, ContentChildren, AfterViewInit } from '@angular/core';
 import { interval, Subject, BehaviorSubject } from 'rxjs';
 import { SlideComponent } from '../slide/slide.component';
+import { SlideDefinition } from '../slideDefintion';
 
 @Component({
   selector: 'app-slider',
   template: `
-    <div class="dot-container" *ngIf="navigationPosition === 'top'">
-      <div *ngFor="let slide of slides" class="dot" (click)="goToSlide(slide)"></div>
-    </div>
     <ng-content></ng-content>
-    <div class="dot-container" *ngIf="navigationPosition === 'bottom'">
-      <div *ngFor="let slide of slides" class="dot" (click)="goToSlide(slide)"></div>
-    </div>
   `,
-  styleUrls: ['./slider.component.scss']
+  styleUrls: ['./slider.component.scss'],
+  providers: []
 })
 export class SliderComponent {
-  slides: SlideDefinition[] = [];
+  @ContentChildren(SlideComponent, {descendants: true})
+  private slideComponents: QueryList<SlideComponent>;
+
   currentSlideIndex: BehaviorSubject<number> = new BehaviorSubject(0);
 
-  @Input() navigationPosition: 'top' | 'bottom' = 'bottom';
-
-  goToSlide(slide: SlideDefinition) {
-    this.currentSlideIndex.next(this.slides.indexOf(slide));
-  }
-
-
-  public registerSlide(slide: SlideDefinition) {
-    this.slides.push(slide);
-  }
-  
+  public get slides(): SlideDefinition[]{
+    return this.slideComponents.map(s => s.slide);
+  };
 }
 
-export interface SlideDefinition {
-  backgroundImage: string;
-  caption: string;
-  description: string;
-}

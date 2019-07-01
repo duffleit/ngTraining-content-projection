@@ -6,6 +6,7 @@ import { SliderComponent } from './slider/slider.component';
 import { SlideComponent } from './slide/slide.component';
 import { HorizontalRotatorComponent } from './rotator/horizontal-rotator.component';
 import { VerticalRotatorComponent } from './rotator/vertical-rotator.component';
+import { NavigationComponent } from './navigation/navigation.component';
 
 @NgModule({
   declarations: [
@@ -13,7 +14,8 @@ import { VerticalRotatorComponent } from './rotator/vertical-rotator.component';
     SliderComponent,
     SlideComponent,
     HorizontalRotatorComponent,
-    VerticalRotatorComponent
+    VerticalRotatorComponent,
+    NavigationComponent
   ],
   imports: [
     BrowserModule

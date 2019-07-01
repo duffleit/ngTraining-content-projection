@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, OnDestroy } from '@angular/core';
-import { SliderComponent, SlideDefinition } from '../slider/slider.component';
+import { SliderComponent } from '../slider/slider.component';
 import { interval } from 'rxjs';
 
 @Component({
