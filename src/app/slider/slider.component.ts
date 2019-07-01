@@ -1,7 +1,7 @@
-import { Component, OnInit, Input, OnDestroy, QueryList, ContentChildren, AfterViewInit } from '@angular/core';
-import { interval, Subject, BehaviorSubject } from 'rxjs';
+import { Component, QueryList, ContentChildren, TemplateRef } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
 import { SlideComponent } from '../slide/slide.component';
-import { SlideDefinition } from '../slideDefintion';
+import { SlideData, SlideDefinition } from '../view-models';
 
 @Component({
   selector: 'app-slider',
@@ -17,8 +17,12 @@ export class SliderComponent {
 
   currentSlideIndex: BehaviorSubject<number> = new BehaviorSubject(0);
 
-  public get slides(): SlideDefinition[]{
-    return this.slideComponents.map(s => s.slide);
+  public get slides(): SlideDefinition[]
+  {
+    return this.slideComponents.map(s => (
+      {data: s.data, label: s.template}
+    ));
   };
+
 }
 

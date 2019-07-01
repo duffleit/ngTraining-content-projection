@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { SlideDefinition } from './slideDefintion';
+import { SlideData } from './view-models';
 
 @Component({
   selector: 'app-root',
@@ -10,7 +10,9 @@ import { SlideDefinition } from './slideDefintion';
           [speed]="3000" 
           [width]="800"
           [height]="600">
-          <app-slide [slide]="slide" *ngFor="let slide of slides"></app-slide>
+          <app-slide [data]="data" *ngFor="let data of slideData">
+            <ng-template>Go to this {{ data.caption }}</ng-template>
+          </app-slide>
         </app-horizontal-rotator>
         <app-navigation></app-navigation>
       </app-slider>
@@ -19,7 +21,7 @@ import { SlideDefinition } from './slideDefintion';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  slides: SlideDefinition[] = [
+  slideData: SlideData[] = [
     {
       backgroundImage: 'assets/images/schoenbrunn.png',
       caption: 'Schönbrunn Palace',

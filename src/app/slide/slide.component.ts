@@ -1,5 +1,5 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { SlideDefinition } from '../slideDefintion';
+import { Component, OnInit, Input, TemplateRef, ContentChild } from '@angular/core';
+import { SlideData } from '../view-models';
 // import { SlideDefinition, SliderComponent } from '../slider/slider.component';
 
 @Component({
@@ -8,27 +8,20 @@ import { SlideDefinition } from '../slideDefintion';
     <div
       class="slide"
       [ngStyle]="{
-        'background-image': 'url(' + slide.backgroundImage + ')'
+        'background-image': 'url(' + data.backgroundImage + ')'
       }"
     >
       <div class="caption">
-        <div class="title">{{ slide.caption }}</div>
-        <div class="description">{{ slide.description }}</div>
+        <div class="title">{{ data.caption }}</div>
+        <div class="description">{{ data.description }}</div>
       </div>
     </div>
   `,
   styleUrls: ['./slide.component.scss']
 })
-export class SlideComponent implements OnInit {
-  @Input() slide: SlideDefinition;
-
-
-  // constructor(private slider: SliderComponent) { }
-
-  ngOnInit() {
-    // this.slider.registerSlide(this.slide);
-  }
-
+export class SlideComponent {
+  @ContentChild(TemplateRef) public template: TemplateRef<any>;
+  @Input() public data: SlideData;
 }
 
 
