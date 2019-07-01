@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { SliderComponent, SlideDefinition } from '../slider/slider.component';
-import { interval } from 'rxjs';
+import { interval, Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-horizontal-rotator',
@@ -31,7 +31,7 @@ export class HorizontalRotatorComponent implements OnInit, OnDestroy {
 
   public offsetY: number = 0;
   public offsetX: number = 0;
-  private intervalSubscriber: any;
+  private subscriptions: Subscription[] = [];
 
   public get screenWidth(): number {
     return this.slider.slides.length * this.width;
@@ -46,13 +46,21 @@ export class HorizontalRotatorComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.intervalSubscriber = interval(this.speed).subscribe(val => {
-      const currentSlide = val % this.slider.slides.length;
-      this.offsetX = currentSlide * this.width * -1;
-    });
+    this.subscriptions.push(interval(this.speed).subscribe(val => {
+      const currentSlideIndex = val % this.slider.slides.length;
+      this.slider.currentSlideIndex.next(currentSlideIndex);
+    }));
+
+    this.subscriptions.push(this.slider.currentSlideIndex.subscribe(currentSlideIndex => {
+      this.switchSlide(currentSlideIndex);
+    }));
   }
 
 
+  private switchSlide(currentSlideIndex: number) {
+    this.offsetX = currentSlideIndex * this.width * -1;
+  }
+
   ngOnDestroy(): void {
-    this.intervalSubscriber.unsubscribe();
+    this.subscriptions.forEach(s => s.unsubscribe());
   }}

@@ -5,9 +5,7 @@ import { SlideDefinition } from './slider/slider.component';
   selector: 'app-root',
   template: `
     <div class="center">
-      <app-slider
-        [navigationPosition]="'top'"
-      >
+      <app-slider [navigationPosition]="'top'">
         <app-horizontal-rotator 
           [speed]="3000" 
           [width]="800"

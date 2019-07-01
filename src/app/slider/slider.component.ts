@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, OnDestroy } from '@angular/core';
-import { interval } from 'rxjs';
+import { interval, Subject, BehaviorSubject } from 'rxjs';
 import { SlideComponent } from '../slide/slide.component';
 
 @Component({
@@ -17,17 +17,12 @@ import { SlideComponent } from '../slide/slide.component';
 })
 export class SliderComponent {
   slides: SlideDefinition[] = [];
+  currentSlideIndex: BehaviorSubject<number> = new BehaviorSubject(0);
+
   @Input() navigationPosition: 'top' | 'bottom' = 'bottom';
 
   goToSlide(slide: SlideDefinition) {
-    const slideToGoTo = this.slides.indexOf(slide);
-    /*
-    if (this.sliderDirection === 'vertical') {
-      this.offsetY = slideToGoTo * this.height * -1;
-    } else {
-      this.offsetX = slideToGoTo * this.width * -1;
-    }
-    */
+    this.currentSlideIndex.next(this.slides.indexOf(slide));
   }
 
 
