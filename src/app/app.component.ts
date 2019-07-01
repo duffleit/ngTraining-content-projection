@@ -6,13 +6,15 @@ import { SlideDefinition } from './slider/slider.component';
   template: `
     <div class="center">
       <app-slider
-        [sliderDirection]="'vertical'"
-        [navigationPosition]="'bottom'"
+        [sliderDirection]="'horizontal'"
+        [navigationPosition]="'top'"
         [speed]="3000"
-        [slides]="slides"
         [width]="800"
+        [slides]="slides"
         [height]="600"
-      ></app-slider>
+      >
+        <app-slide [slide]="slide" *ngFor="let slide of slides"></app-slide>
+      </app-slider>
     </div>
   `,
   styleUrls: ['./app.component.scss']
