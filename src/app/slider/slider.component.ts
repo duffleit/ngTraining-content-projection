@@ -18,18 +18,7 @@ import { interval } from 'rxjs';
           'flex-direction': flexDirection
         }"
       >
-        <div
-          class="slide"
-          *ngFor="let slide of slides"
-          [ngStyle]="{
-            'background-image': 'url(' + slide.backgroundImage + ')'
-          }"
-        >
-          <div class="caption">
-            <div class="title">{{ slide.caption }}</div>
-            <div class="description">{{ slide.description }}</div>
-          </div>
-        </div>
+        <ng-content></ng-content>
       </div>
     </div>
     <div class="dot-container" *ngIf="navigationPosition === 'bottom'">
@@ -39,7 +28,7 @@ import { interval } from 'rxjs';
   styleUrls: ['./slider.component.scss']
 })
 export class SliderComponent implements OnInit, OnDestroy {
-  @Input() slides: SlideDefinition[];
+  slides: SlideDefinition[] = [];
   @Input() width: number;
   @Input() height: number;
   @Input() speed: number;
@@ -49,6 +38,10 @@ export class SliderComponent implements OnInit, OnDestroy {
   public offsetY: number = 0;
   public offsetX: number = 0;
   private intervalSubscriber: any;
+
+  public registerSlide(slide: SlideDefinition) : void {
+    this.slides.push(slide);
+  }
 
   public get screenWidth(): number {
     return this.sliderDirection === 'horizontal' ? this.slides.length * this.width : this.width;
