@@ -1,0 +1,17 @@
+<div
+  class="slider-container"
+  [ngStyle]="{ 'width.px': width, 'height.px': height }"
+>
+  <div
+    class="screen"
+    [ngStyle]="{
+      'margin-top.px': offsetY,
+      'margin-left.px': offsetX,
+      'width.px': screenWidth,
+      'height.px': screenHeight,
+      'flex-direction': flexDirection
+    }"
+  >
+    <ng-content></ng-content>
+  </div>
+</div>

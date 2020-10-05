@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { SlideProvider, SLIDE_PROVIDER_TOKEN } from '../slideDefintionInjectionToken';
 import { SlideDefinition, SliderComponent } from '../slider/slider.component';
 
 @Component({
@@ -17,14 +18,14 @@ import { SlideDefinition, SliderComponent } from '../slider/slider.component';
     </div>
   `,
   styleUrls: ['./slide.component.scss'],
+  providers: [
+    {
+      provide: SLIDE_PROVIDER_TOKEN,
+      useExisting: SlideComponent,
+    },
+  ],
 })
-export class SlideComponent implements OnInit {
+export class SlideComponent implements SlideProvider {
   @Input()
   public slide: SlideDefinition;
-
-  constructor(private sliderComponent: SliderComponent) {}
-
-  ngOnInit(): void {
-    this.sliderComponent.registerSlide(this.slide);
-  }
 }

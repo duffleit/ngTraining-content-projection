@@ -1,0 +1,18 @@
+.dot-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    .dot {
+        border-radius: 3px;
+        cursor: pointer;
+        margin: 1rem .5rem;
+        padding: .5rem;
+        display: inline-block;
+        background-color: lightgrey;
+        &:hover {
+            background-color: grey;
+            color: white;
+        }
+    }
+}
+

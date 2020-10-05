@@ -1,83 +1,21 @@
-import { Component, OnInit, Input, OnDestroy } from '@angular/core';
-import { interval } from 'rxjs';
+import { Component, OnInit, Input, OnDestroy, ContentChildren, QueryList } from '@angular/core';
+import { interval, Subject } from 'rxjs';
+import { SlideComponent } from '../slide/slide.component';
+import { SlideDirective, SlideProvider, SLIDE_PROVIDER_TOKEN } from '../slideDefintionInjectionToken';
 
 @Component({
   selector: 'app-slider',
-  template: `
-    <div class="dot-container" *ngIf="navigationPosition === 'top'">
-      <div *ngFor="let slide of slides" class="dot" (click)="goToSlide(slide)"></div>
-    </div>
-    <div class="slider-container" [ngStyle]="{ 'width.px': width, 'height.px': height }">
-      <div
-        class="screen"
-        [ngStyle]="{
-          'margin-top.px': offsetY,
-          'margin-left.px': offsetX,
-          'width.px': screenWidth,
-          'height.px': screenHeight,
-          'flex-direction': flexDirection
-        }"
-      >
-        <ng-content></ng-content>
-      </div>
-    </div>
-    <div class="dot-container" *ngIf="navigationPosition === 'bottom'">
-      <div *ngFor="let slide of slides" class="dot" (click)="goToSlide(slide)"></div>
-    </div>
-  `,
-  styleUrls: ['./slider.component.scss']
+  template: `<ng-content></ng-content>`,
 })
-export class SliderComponent implements OnInit, OnDestroy {
-  slides: SlideDefinition[] = [];
-  @Input() width: number;
-  @Input() height: number;
-  @Input() speed: number;
-  @Input() sliderDirection: 'vertical' | 'horizontal' = 'horizontal';
-  @Input() navigationPosition: 'top' | 'bottom' = 'bottom';
+export class SliderComponent {
+  @ContentChildren(SlideDirective, {descendants: true, read: SLIDE_PROVIDER_TOKEN})
+  public slideChildren: QueryList<SlideProvider>;
 
-  public offsetY: number = 0;
-  public offsetX: number = 0;
-  private intervalSubscriber: any;
-
-  public registerSlide(slide: SlideDefinition) : void {
-    this.slides.push(slide);
+  public get slides(): SlideDefinition[]{
+    return this.slideChildren.map(s => s.slide);
   }
 
-  public get screenWidth(): number {
-    return this.sliderDirection === 'horizontal' ? this.slides.length * this.width : this.width;
-  }
-
-  public get screenHeight(): number {
-    return this.sliderDirection === 'horizontal' ? this.height : this.slides.length * this.height;
-  }
-
-  public get flexDirection(): string {
-    return this.sliderDirection === 'horizontal' ? 'row' : 'column';
-  }
-
-  ngOnInit(): void {
-    this.intervalSubscriber = interval(this.speed).subscribe(val => {
-      const currentSlide = val % this.slides.length;
-      if (this.sliderDirection === 'vertical') {
-        this.offsetY = currentSlide * this.height * -1;
-      } else {
-        this.offsetX = currentSlide * this.width * -1;
-      }
-    });
-  }
-
-  goToSlide(slide: SlideDefinition) {
-    const slideToGoTo = this.slides.indexOf(slide);
-    if (this.sliderDirection === 'vertical') {
-      this.offsetY = slideToGoTo * this.height * -1;
-    } else {
-      this.offsetX = slideToGoTo * this.width * -1;
-    }
-  }
-
-  ngOnDestroy(): void {
-    this.intervalSubscriber.unsubscribe();
-  }
+  public currentSlide: Subject<SlideDefinition> = new Subject();
 }
 
 export interface SlideDefinition {
